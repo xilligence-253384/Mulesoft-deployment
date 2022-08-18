@@ -68,6 +68,13 @@
 			<artifactId>mule-maven-plugin</artifactId>
 			<version>3.7.0</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.mule.runtime/mule-module-javaee -->
+		<dependency>
+			<groupId>org.mule.runtime</groupId>
+			<artifactId>mule-module-javaee</artifactId>
+			<version>4.4.0</version>
+			<scope>provided</scope>
+		</dependency>
 
 	</dependencies>
 
