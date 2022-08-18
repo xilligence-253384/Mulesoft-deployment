@@ -16,7 +16,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
 		<app.runtime>4.4.0-20220722</app.runtime>
-		<mule.maven.plugin.version>3.7.0</mule.maven.plugin.version>
+		<mule.maven.plugin.version>3.3.5</mule.maven.plugin.version>
 	</properties>
 
 	<build>
@@ -66,7 +66,7 @@
 		<dependency>
 			<groupId>org.mule.tools.maven</groupId>
 			<artifactId>mule-maven-plugin</artifactId>
-			<version>3.7.0</version>
+			<version>3.3.5</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.mule.runtime/mule-module-javaee -->
 		<dependency>
@@ -95,10 +95,8 @@
 
 	<pluginRepositories>
 		<pluginRepository>
-			<id>mulesoft-releases</id>
-			<name>MuleSoft Releases Repository</name>
-			<layout>default</layout>
-			<url>https://repository.mulesoft.org/releases/</url>
+			<id>mule-ee-public</id>
+			<url>https://repository.mulesoft.org/nexus/content/repositories/releases</url>
 			<snapshots>
 				<enabled>false</enabled>
 			</snapshots>
