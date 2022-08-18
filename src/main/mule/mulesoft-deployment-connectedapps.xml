@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:scripting="http://www.mulesoft.org/schema/mule/scripting" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/scripting http://www.mulesoft.org/schema/mule/scripting/current/mule-scripting.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="fe855042-2c89-4946-a602-e0bb5d2053e6" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="mulesoft-deployment-connectedappsFlow" doc:id="a63052b7-3c4e-45b0-bc10-992b8ca77724" >
+		<http:listener doc:name="Listener" doc:id="174b52bc-8d24-4760-a3dc-f00762a0ab53" config-ref="HTTP_Listener_config" path="/jenkins-deployment"/>
+		<logger level="INFO" doc:name="Logger" doc:id="b521a437-f6f4-4d48-85a8-ec1d18e7535d" message='#["Hello Jenkins flow initialized"]'/>
+		<ee:transform doc:name="Transform Message" doc:id="92f55d06-2da0-4dd8-982b-de118618ccbf" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<choice doc:name="Choice" doc:id="80ba53fb-dc3e-44b2-b69f-2e58a5397963" >
+			<when expression='#[payload.company == "apple"]'>
+				<ee:transform doc:name="Transform Message" doc:id="37348e69-e8d1-458e-9310-3be02c6f77bf" >
+					<ee:message >
+						<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"Status":200,
+	"Message":"Hi sivaprasad you have got offer from Apple"
+}]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+				<logger level="INFO" doc:name="Logger" doc:id="345fe9c3-488a-48d6-ac3a-9edb92717396" message='#["Hello from Apple......,"]'/>
+			</when>
+			<when expression='#[payload.company == "google"]'>
+				<ee:transform doc:name="Transform Message" doc:id="f3e198b0-ec3a-40cb-8fee-d0d71a4fa56c" >
+					<ee:message >
+						<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"Status":200,
+	"Message":"Hi sivaprasad you have got offer from Google"
+}]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+				<logger level="INFO" doc:name="Logger" doc:id="244b80f7-c998-452f-8fa1-5b6d17b08c73" message='#["Hello from Google.....,"]'/>
+			</when>
+			<otherwise >
+				<ee:transform doc:name="Transform Message" doc:id="878001d2-c84a-490a-acbf-17d944e344cf" >
+					<ee:message >
+						<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"Status":500,
+	"Message": "Hi sivaprasad your application got rejected"
+}]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+			</otherwise>
+		</choice>
+		<logger level="INFO" doc:name="Logger" doc:id="40712921-a510-490a-8448-ceb96d774357" message='#["Testing jenkins flow completed"]'/>
+	</flow>
+</mule>
