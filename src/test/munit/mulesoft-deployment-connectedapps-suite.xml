@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="mulesoft-deployment-connectedapps-suite.xml" />
+	<munit:test name="mulesoft-deployment-connectedappsFlow-test" doc:id="c1800ebb-cddb-44e5-8c35-1946b11f27e2" >
+		<munit:behavior >
+			<munit:set-event doc:name="Set Input" doc:id="fb236c85-7280-4d94-aea9-3be3e36c7411" >
+				<munit:payload value="#[output application/json  --- readUrl('classpath://mulesoftdeploymentconnectedappsFlowtest\set-event_payload.dwl')]" encoding="UTF-8" mediaType="application/json " />
+				<munit:attributes value="#[readUrl('classpath://mulesoftdeploymentconnectedappsFlowtest\set-event_attributes.dwl')]" />
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to mulesoft-deployment-connectedappsFlow" doc:id="09d9e85c-284d-4d9b-99ab-b1182ccf0287" name="mulesoft-deployment-connectedappsFlow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert payload" doc:id="f5fa8507-f0ac-4986-b4de-3213875d115d" message="The payload does not match">
+				<munit-tools:that ><![CDATA[#[%dw 2.0
+import mulesoftdeploymentconnectedappsFlowtest::assert_expression_payload
+---
+assert_expression_payload::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+			</munit-tools:assert>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="mulesoft-deployment-connectedappsFlow-test1" doc:id="e37c2645-61b9-4496-b781-76225b173cf2" >
+		<munit:behavior >
+			<munit:set-event doc:name="Set Input" doc:id="4985aeaf-e651-4a1c-a13f-f713516203f0" >
+				<munit:payload value="#[output application/json  --- readUrl('classpath://mulesoftdeploymentconnectedappsFlowtest1\set-event_payload.dwl')]" encoding="UTF-8" mediaType="application/json " />
+				<munit:attributes value="#[readUrl('classpath://mulesoftdeploymentconnectedappsFlowtest1\set-event_attributes.dwl')]" />
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to mulesoft-deployment-connectedappsFlow" doc:id="03ebb5a0-058b-4596-8f1b-ce108f6fb672" name="mulesoft-deployment-connectedappsFlow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert payload" doc:id="dc2fa665-1134-48aa-b0ce-b324bd4334d5" message="The payload does not match">
+				<munit-tools:that ><![CDATA[#[%dw 2.0
+import mulesoftdeploymentconnectedappsFlowtest1::assert_expression_payload
+---
+assert_expression_payload::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+			</munit-tools:assert>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="mulesoft-deployment-connectedappsFlow-test2" doc:id="0a55e73b-08ec-4bac-a0e2-8b8e4218f0bd" >
+		<munit:behavior >
+			<munit:set-event doc:name="Set Input" doc:id="cbadcd41-b2a4-4003-bd92-d1c0fe3a46d8" >
+				<munit:payload value="#[output application/json  --- readUrl('classpath://mulesoftdeploymentconnectedappsFlowtest2\set-event_payload.dwl')]" encoding="UTF-8" mediaType="application/json " />
+				<munit:attributes value="#[readUrl('classpath://mulesoftdeploymentconnectedappsFlowtest2\set-event_attributes.dwl')]" />
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to mulesoft-deployment-connectedappsFlow" doc:id="7cd2b624-96cc-4d2c-8123-af07824ce9c0" name="mulesoft-deployment-connectedappsFlow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert payload" doc:id="1d25d81a-d377-4e40-9b0c-0b798771676e" message="The payload does not match">
+				<munit-tools:that ><![CDATA[#[%dw 2.0
+import mulesoftdeploymentconnectedappsFlowtest2::assert_expression_payload
+---
+assert_expression_payload::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+			</munit-tools:assert>
+		</munit:validation>
+	</munit:test>
+
+
+</mule>
